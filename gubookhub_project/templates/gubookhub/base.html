@@ -23,8 +23,15 @@
         <hr />
         <div>
             <ul>
-                <li><a href="{% url 'gubookhub_app:index' %}">Index</a></li>
-                <li><a href="{% url 'gubookhub_app:about' %}">About</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
+                    <li><a href="{% url 'auth_password_change' %}">Change Your Password</a></li>
+                {% else %} 
+                    <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+                    <li><a href="{% url 'auth_login' %}">Login</a></li>
+                {% endif %}
+                    <li><a href="{% url 'gubookhub_app:index' %}">Index</a></li>
+                    <li><a href="{% url 'gubookhub_app:about' %}">About</a></li>
             </ul>
         </div>
     </body>

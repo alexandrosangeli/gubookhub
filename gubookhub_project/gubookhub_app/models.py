@@ -33,8 +33,10 @@ class Book(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     level = models.IntegerField()
     subject = models.CharField(max_length=128, blank=False) # Considering making it a foreign key later on
+    picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username

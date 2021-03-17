@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gubookhub_app',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +103,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Registration 
+# If True, users can register
+REGISTRATION_OPEN = True
+
+# If True, the user will be automatically logged in after registering 
+REGISTRATION_AUTO_LOGIN = True
+
+# The URL that Django redirects users to after logging in 
+LOGIN_REDIRECT_URL = 'gubookhub_app:index'
+
+# The page that users are redirected to if they are not logged in.
+LOGIN_URL = 'auth_login'
 
 
 # Internationalization

@@ -13,6 +13,14 @@
     </div>
 
     <div>
+        {% if user.is_authenticated %}
+            Welcome to GU Book Hub {{ user.username }}
+        {% else %} 
+            Login to access more features
+        {% endif %}
+    </div>
+
+    <div>
         <h2>Subject List</h2>
         <ul>
             <li>"subject 1"</li>
