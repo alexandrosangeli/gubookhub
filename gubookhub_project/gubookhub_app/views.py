@@ -6,13 +6,20 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
+from gubookhub_app.models import Subject, Course, Book
 
 # Create your views here.
 
 def index(request):
+    subject_list = Subject.objects.order_by('name')
+    course_list = Course.objects.order_by('title')
+    book_list = Book.objects.order_by('title')
+
     context_dict = {}
 
     context_dict['boldmessage'] = 'Find resources that are right for you!'
+    context_dict['subjects'] = subject_list
+    context_dict['courses'] = course_list
 
     return render(request, 'gubookhub/index.html', context=context_dict)
 

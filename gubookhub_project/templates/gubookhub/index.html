@@ -21,18 +21,28 @@
     </div>
 
     <div>
-        <h2>Subject List</h2>
+        <h2> Subjects </h2>
+        {% if subjects %}
         <ul>
-            <li>"subject 1"</li>
-            <li>"Subject 2"</li>
+        {% for subject in subjects %}
+            <li>{{ subject.name }}</li>
+        {% endfor %}
         </ul>
+        {% else %}
+        <strong>There are no Subjects present.</strong>
+        {% endif %} 
     </div>
 
     <div>
         <h2>Popular resources</h2>
+        {% if courses %} 
         <ul>
-            <li>"Resource 1"</li>
-            <li>"Resource 2"</li>
+        {% for course in courses %}
+            <li>{{ course.title }}</li>
+        {% endfor %} 
         </ul>
+        {% else %}
+        <strong>There are no courses present.</strong>
+        {% endif %} 
     </div>
 {% endblock %} 

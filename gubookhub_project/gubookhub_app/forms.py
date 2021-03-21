@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from gubookhub_app.models import Book, Profile
+from registration.forms import RegistrationFormUniqueEmail
+
 
 class BookForm(forms.ModelForm):
     title = forms.CharField(max_length=Book.TITLE_MAX_LENGTH, help_text="Please enter the title of the book.")
