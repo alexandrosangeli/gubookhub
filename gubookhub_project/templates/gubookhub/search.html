@@ -7,4 +7,21 @@
 
 
 {% block body_block %} 
+    <h1>Search:</h1>
+
+    <form action="{% url 'gubookhub_app:search' %}", method="POST">
+
+        {% csrf_token %}
+        <input type="text", name="query", id="query">
+        <button type="submit">Search</button>
+    </form>
+
+    <h2>Results:</h2>
+    <div>
+        {% if results %}
+            {% for result in results %}
+                <p>{{ result.title }} by {{ result.authors }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
 {% endblock %} 
