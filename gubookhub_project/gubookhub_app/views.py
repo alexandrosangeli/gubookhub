@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from gubookhub_app.forms import UserForm, ProfileForm
+from gubookhub_app.forms import UserForm, ProfileForm, BookForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.urls import reverse
@@ -40,5 +40,19 @@ def search(request):
             api_response = run_query(query)
             for item in api_response:
                 results.append(item['volumeInfo'])
-    
+
     return render(request, 'gubookhub/search.html', context={'results':results})
+
+@login_required
+def add_book(request):
+    form = BookForm()
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('/gubookhub_app/')
+        else:
+            print(form.errors)
+
+    return render(request, 'gubookhub/add_book.html', {'form': form})

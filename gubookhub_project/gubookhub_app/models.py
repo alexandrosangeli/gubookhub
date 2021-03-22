@@ -16,7 +16,6 @@ class Course(models.Model):
         return self.title
 
 class Book(models.Model):
-
     TITLE_MAX_LENGTH = 128
     AUTHOR_MAX_LENGTH = 128
     URL_MAX_LENGTH = 256
@@ -49,11 +48,11 @@ class Profile(models.Model):
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.profile.save()
     # https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html#onetoone
-    
+
 class Favorite(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         # User favorited: Book
-        return self.book + ' favorited by: ' + self.user.name 
+        return self.book + ' favorited by: ' + self.user.name
