@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from gubookhub_app.forms import UserForm, ProfileForm
+from gubookhub_app.forms import UserForm, ProfileForm, BookForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.urls import reverse
@@ -42,3 +42,59 @@ def search(request):
                 results.append(item['volumeInfo'])
     
     return render(request, 'gubookhub/search.html', context={'results':results})
+
+def show_course(request, course_name_slug):
+    context_dict = {}
+
+    try:
+        course = Course.objects.get(slug=course_name_slug)
+        books = Book.objects.filter(course=course)
+        context_dict['course'] = course
+        context_dict['books'] = books
+    except Course.DoesNotExist:
+        context_dict['course'] = None
+        context_dict['books'] = None
+
+    return render(request, 'gubookhub/course.html', context=context_dict)
+
+def show_subject(request, subject_name_slug):
+    context_dict = {}
+
+    try:
+        subject = Subject.objects.get(slug=subject_name_slug)
+        courses = Course.objects.filter(subject=subject)
+        context_dict['subject'] = subject
+        context_dict['courses'] = courses
+    except Subject.DoesNotExist:
+        context_dict['subject'] = None
+        context_dict['courses'] = None
+
+    return render(request, 'gubookhub/subject.html', context=context_dict)
+
+@login_required
+def add_book(request, course_name_slug):
+    try:
+        course = Course.objects.get(slug=course_name_slug)
+    except:
+        course = None
+
+    if course is None:
+        return redirect(reverse('gubookhub_app:index'))
+
+    form = BookForm()
+
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+
+        if form.is_valid():
+            if course:
+                book = form.save(commit=False)
+                book.course = course
+                book.save()
+
+                return redirect(reverse('gubookhub_app:show_course', kwargs={'course_name_slug': course_name_slug}))
+        else:
+            print(form.errors)
+
+    context_dict = {'form': form, 'course': course}
+    return render(request, 'gubookhub/add_book.html', context=context_dict)

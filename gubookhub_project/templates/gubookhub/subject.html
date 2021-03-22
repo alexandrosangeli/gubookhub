@@ -2,9 +2,26 @@
 {% load staticfiles %} 
 
 {% block title_block %} 
-    Subject Page
+    {% if subject %}
+        {{ subject.name }}
+    {% else %}
+        Unknown Subject
+    {% endif %}
 {% endblock %}
 
-
-{% block body_block %} 
-{% endblock %} 
+{% block body_block %}
+    {% if subject %}
+        <h1>{{ subject.name }}</h1>
+        {% if courses %}
+        <ul>
+            {% for course in courses %}
+            <li><a href="{% url 'gubookhub_app:show_course' course.slug %}">{{ course.title }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>No courses currently in this subject.</strong>
+        {% endif %}
+    {% else %}
+        The specified subject does not exist.
+    {% endif %}
+{% endblock %}
