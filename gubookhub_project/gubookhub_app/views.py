@@ -55,4 +55,4 @@ def add_book(request):
         else:
             print(form.errors)
 
-    return render(request, 'gubookhub/add_book.html', {'form': form})
+    return render(request, 'gubookhub/add_book.html' ,{'form': form})
