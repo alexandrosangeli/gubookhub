@@ -16,11 +16,9 @@
         {% if books %}
         <ul>
             {% for book in books %}
-                <!-- not all books have urls -->
                 {% if book.url %}
                     <li><a href="{{ book.url }}">{{ book.title }}</a></li>
                 {% endif %}
-                <li>{{ book.title }}</li>
             {% endfor %}
         </ul>
         {% else %}
