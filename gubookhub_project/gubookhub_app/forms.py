@@ -22,11 +22,7 @@ class BookForm(forms.ModelForm):
 
     class Meta:
 	    model = Book
-	    fields = ('title', 'author', 'url', 'course')
-
-    class Meta:
-        model = Book
-        exclude = ('course',)
+	    fields = ('title', 'author', 'url', 'course', 'favorite_count', 'user')
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
