@@ -1,26 +1,25 @@
-{% extends 'gubookhub/base.html' %} 
-{% load staticfiles %} 
+{% extends 'gubookhub/base.html' %}
+{% load staticfiles %}
 
-{% block title_block %} 
+{% block title_block %}
     Add a Book
 {% endblock %}
 
 
-{% block body_block %} 
-<h1>Add a Book to {{ course.name }}</h1>
-<div>
-    <form id="book_form" method="post" action="{% url 'gubookhub_app:add_book' course.slug %}">
-        {% csrf_token %}
+{% block body_block %}
+<h1>Add a Book</h1>
+    <div>
+      <form id="book_form" method="post" action="{% url 'gubookhub_app:add_book' %}">
         {% csrf_token %}
         {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
+					{{ hidden }}
+				{% endfor %}
         {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
+          {{ field.errors }}
+          {{ field.help_text }}
+          {{ field }}
         {% endfor %}
-        <input type="submit" name="submit" value="Add Book" />
-    </form>
-</div>
-{% endblock %} 
+        <input type="submit" name="submit" value="Create Book" />
+    </div>
+
+{% endblock %}
