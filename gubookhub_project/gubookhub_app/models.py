@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Subject(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    slug = models.SlugField(unique=True, default="Default Course")
+    slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -16,7 +16,7 @@ class Course(models.Model):
     title = models.CharField(max_length=128, unique=True)
     level = models.IntegerField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    slug = models.SlugField(unique=True, default='Default Course')
+    slug = models.SlugField(unique=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
