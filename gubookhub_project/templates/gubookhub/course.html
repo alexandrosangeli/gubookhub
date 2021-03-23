@@ -17,7 +17,16 @@
         <ul>
             {% for book in books %}
                 {% if book.url %}
-                    <li><a href="{{ book.url }}">{{ book.title }}</a></li>
+                    <li>{{ book.title}} <br />
+                    <a href="{{ book.url }}">Get book here</a><br />
+                    Author: {{ book.author }} 
+                    Posted by: {{ book.user }}
+                    </li>
+                {% else %}
+                    <li>{{ book.title }} <br />
+                        Author: {{ book.author }} <br />
+                        Posted by: {{ book.user }}
+                    </li>
                 {% endif %}
             {% endfor %}
         </ul>

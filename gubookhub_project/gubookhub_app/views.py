@@ -54,9 +54,9 @@ def subject(request, subject_name_slug):
 def course(request, subject_name_slug, course_title):
 
     course = Course.objects.get(title=course_title)
-    books = None
+    book_list = Book.objects.filter(course=course).order_by('title')
 
-    context = {'course':course, 'books':books}
+    context = {'course':course, 'books':book_list}
 
     return render(request, 'gubookhub/course.html', context=context)
 
