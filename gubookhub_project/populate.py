@@ -7,6 +7,14 @@ django.setup()
 
 from gubookhub_app.models import Subject, Course, Book
 
+def level(title):
+    for elt in title:
+        try:
+            elt = int(elt)
+            return elt
+        except Exception:
+            continue
+
 def populate():
 
     eng_courses = [
@@ -25,10 +33,21 @@ def populate():
         'Mechanical Engineering' : {'courses' : eng_courses},
     }
 
-    for subject, subject_data in subjects.items():
-        s = add_subject(subject)
-        for course in subject_data['courses']:
-            add_course(s, course['title'], course['level'])
+    with open("population_data/subjects", "r") as sf:
+        subject_list = sf.readlines()
+        for subject in subject_list:
+            subject = subject.strip()
+            s = add_subject(subject)
+            with open("population_data/"+subject, "r") as cf:
+                course_list = cf.readline().split(" ")
+                for course in course_list:
+                    add_course(s, course, level(course))
+
+
+    # for subject, subject_data in subjects.items():
+    #     s = add_subject(subject)
+    #     for course in subject_data['courses']:
+    #         add_course(s, course['title'], course['level'])
 
     for s in Subject.objects.all():
         for c in Course.objects.filter(subject=s):
@@ -41,7 +60,6 @@ def add_subject(name):
 
 def add_course(subject, title, level):
     course = Course.objects.get_or_create(subject=subject, title=title, level=level)[0]
-    #course.level = level
     course.subject = subject
     course.save()
     return course
