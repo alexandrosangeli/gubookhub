@@ -10,6 +10,17 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <style>
+        .container-fluid{
+            padding-top: 2%; 
+        }
+        .container{
+            position: relative;
+            right: 160px;
+        }
+    </style>
+
     <title>
         GU Book Hub -
             {% block title_block %}
@@ -26,7 +37,7 @@
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-danger shadow-sm">
+            <nav class="navbar navbar-expand-lg py-3 navbar-dark fixed-top bg-danger shadow-sm">
                 <div class="container">
                     <a class="navbar-brand p-1" href="{% url 'gubookhub_app:index' %}">
                         <img src="https://i.imgur.com/tDLsI0F.png" width="40" height="40" alt="" class="d-inline-block align-middle mr-2">
@@ -42,15 +53,15 @@
                             <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:about' %}">About</a></li>
                             <!-- <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li> -->
                             {% if user.is_authenticated %}
-                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
                             {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
-                            <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
                             {% endif %}
-                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +70,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-1 d-none d-md-block bg-secondary sidebar">
+                <nav class="col-md-2 d-none d-md-block bg-secondary sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
                         Add Some Content Here Later
@@ -67,7 +78,7 @@
                     </div>
                 </nav>
                 
-                <main role="main" class="col-md-9  ml-sm-auto col-lg-11 px-4">		
+                <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
                     {% block body_block %}{% endblock %}
                     
                     <!-- FOOTER -->
