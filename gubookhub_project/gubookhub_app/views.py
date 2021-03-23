@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
-from gubookhub_app.models import Subject, Course, Book
+from gubookhub_app.models import Subject, Course, Book, Profile
 
 # Create your views here.
 
