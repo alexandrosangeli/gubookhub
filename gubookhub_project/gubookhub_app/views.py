@@ -81,13 +81,14 @@ def edit_profile(request):
     completed = False
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user)
+        form = ProfileForm(request.POST, instance=request.user.profile)
         if form.is_valid:
             profile = form.save(commit=False)
 
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-            
+
+            profile.user = request.user
             profile.save()
             completed = True
             return HttpResponseRedirect(reverse('gubookhub_app:index'))
