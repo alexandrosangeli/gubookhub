@@ -44,7 +44,7 @@ def search(request):
     return render(request, 'gubookhub/search.html', context={'results':results})
 
 def subject(request, subject_name_slug):
-    
+
     subject= Subject.objects.get(slug=subject_name_slug)
     associated_courses = Course.objects.filter(subject=subject)
     context= {'subject':subject, 'courses':associated_courses}
@@ -68,7 +68,9 @@ def add_book(request):
         form = BookForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            book = form.save(commit=False)
+            book.user = request.user
+            book.save()
             return redirect('/gubookhub_app/')
         else:
             print(form.errors)
@@ -81,7 +83,7 @@ def edit_profile(request):
     completed = False
 
     if request.method == 'POST':
-        
+
         try:
             form = ProfileForm(request.POST, instance=request.user.profile)
         except User.profile.RelatedObjectDoesNotExist:
@@ -97,12 +99,12 @@ def edit_profile(request):
             profile.save()
             completed = True
             return HttpResponseRedirect(reverse('gubookhub_app:index'))
-        else: 
+        else:
             print(form.errors)
     else:
         form = ProfileForm()
-    
-    context_dict['form'] = form 
+
+    context_dict['form'] = form
     context_dict['completed'] = completed
 
     return render(request, 'gubookhub/edit_profile.html', context_dict)
