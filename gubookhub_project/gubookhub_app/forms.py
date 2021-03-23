@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from gubookhub_app.models import Book, Profile, Course
-from registration.forms import RegistrationFormUniqueEmail
+from gubookhub_app.models import Book, Profile, Course, Subject
+from registration.forms import RegistrationFormUniqueEmail, RegistrationForm
 
 
 class BookForm(forms.ModelForm):
@@ -33,7 +33,8 @@ class UserForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
-
+    subject_list = Subject.objects.order_by('name')
+    subject = forms.ModelChoiceField(queryset=subject_list)
     class Meta:
         model = Profile
         fields = ('level', 'subject', 'picture',)

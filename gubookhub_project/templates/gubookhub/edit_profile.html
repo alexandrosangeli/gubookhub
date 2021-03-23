@@ -1,0 +1,23 @@
+{% extends 'gubookhub/base.html' %}
+{% load staticfiles %} 
+
+{% block title_block %} 
+    Edit user profile
+{% endblock %} 
+
+{% block body_block %} 
+<h1>Edit your personal details</h1>
+{% if completed %} 
+<strong>Profile successfully updated!</strong>
+<a href="{% url 'gubookhub_app:index' %}">Return to Homepage.</a><br />
+{% else %} 
+<form method="post" action="." enctype="multipart/form-data">
+
+    {% csrf_token %} 
+    {{ form.as_p }}
+
+
+    <input type="submit" name="submit" value="Save" />
+</form>
+{% endif %} 
+{% endblock %} 

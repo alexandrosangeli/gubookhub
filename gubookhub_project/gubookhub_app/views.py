@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from gubookhub_app.forms import UserForm, ProfileForm, BookForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -56,3 +56,29 @@ def add_book(request):
             print(form.errors)
 
     return render(request, 'gubookhub/add_book.html' ,{'form': form})
+
+@login_required
+def edit_profile(request):
+    context_dict = {}
+    completed = False
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user)
+        if form.is_valid:
+            profile = form.save(commit=False)
+
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES['picture']
+            
+            profile.save()
+            completed = True
+            return HttpResponseRedirect(reverse('gubookhub_app:index'))
+        else: 
+            print(form.errors)
+    else:
+        form = ProfileForm()
+    
+    context_dict['form'] = form 
+    context_dict['completed'] = completed
+
+    return render(request, 'gubookhub/edit_profile.html', context_dict)

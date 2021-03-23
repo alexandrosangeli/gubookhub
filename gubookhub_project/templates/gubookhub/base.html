@@ -27,6 +27,7 @@
                     <li><a href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
                     <li><a href="{% url 'auth_password_change' %}">Change Your Password</a></li>
                     <li><a href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
+                    <li><a href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
                 {% else %}
                     <li><a href="{% url 'registration_register' %}">Sign Up</a></li>
                     <li><a href="{% url 'auth_login' %}">Login</a></li>
