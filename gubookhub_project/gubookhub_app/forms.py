@@ -34,7 +34,17 @@ class UserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
     subject_list = Subject.objects.order_by('name')
+    level_choices = [
+        [1,"1"],
+        [2,"2"],
+        [3,"3"],
+        [4,"4"],
+        [5,"5"],
+        [6,"PGR"],
+    ]
+
     subject = forms.ModelChoiceField(queryset=subject_list)
+    level = forms.IntegerField(widget=forms.Select(choices=level_choices))
     class Meta:
         model = Profile
         fields = ('level', 'subject', 'picture',)

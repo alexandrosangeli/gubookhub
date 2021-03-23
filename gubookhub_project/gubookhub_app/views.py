@@ -43,6 +43,24 @@ def search(request):
 
     return render(request, 'gubookhub/search.html', context={'results':results})
 
+def subject(request, subject_name_slug):
+    
+    subject= Subject.objects.get(slug=subject_name_slug)
+    associated_courses = Course.objects.filter(subject=subject)
+    context= {'subject':subject, 'courses':associated_courses}
+
+    return render(request, 'gubookhub/subject.html', context=context)
+
+def course(request, subject_name_slug, course_title):
+
+    course = Course.objects.get(title=course_title)
+    books = None
+
+    context = {'course':course, 'books':books}
+
+    return render(request, 'gubookhub/course.html', context=context)
+
+
 @login_required
 def add_book(request):
     form = BookForm()

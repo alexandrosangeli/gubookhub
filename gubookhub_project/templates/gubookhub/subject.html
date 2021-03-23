@@ -15,7 +15,7 @@
         {% if courses %}
         <ul>
             {% for course in courses %}
-            <li><a href="{% url 'gubookhub_app:show_course' course.slug %}">{{ course.title }}</a></li>
+            <li><a href="{% url 'gubookhub_app:course' subject.slug course.title %}">{{ course.title }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
