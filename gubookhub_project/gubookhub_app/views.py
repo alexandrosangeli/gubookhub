@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
-from gubookhub_app.models import Subject, Course, Book
+from gubookhub_app.models import Subject, Course, Book, User
 
 # Create your views here.
 
@@ -81,7 +81,12 @@ def edit_profile(request):
     completed = False
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=request.user.profile)
+        
+        try:
+            form = ProfileForm(request.POST, instance=request.user.profile)
+        except User.profile.RelatedObjectDoesNotExist:
+            form = ProfileForm(request.POST)
+
         if form.is_valid:
             profile = form.save(commit=False)
 
