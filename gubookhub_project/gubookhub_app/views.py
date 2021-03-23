@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
 from gubookhub_app.models import Subject, Course, Book, User
+from django.contrib import messages
 
 # Create your views here.
 
@@ -71,6 +72,7 @@ def add_book(request):
             book = form.save(commit=False)
             book.user = request.user
             book.save()
+            messages.success(request, 'Book successfully added.')
             return redirect('/gubookhub_app/')
         else:
             print(form.errors)
