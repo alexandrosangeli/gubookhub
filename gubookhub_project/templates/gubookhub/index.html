@@ -1,13 +1,20 @@
 {% extends 'gubookhub/base.html' %}
-{% load staticfiles %} 
+{% load staticfiles %}
 
 {% block title_block %}
     Homepage
 {% endblock %}
 
-{% block body_block %} 
+{% block body_block %}
     <h1>University of Glasgow</h1>
     <div>
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
         Book Hub
         <strong>{{ boldmessage }}</strong>
     </div>
@@ -15,7 +22,7 @@
     <div>
         {% if user.is_authenticated %}
             Welcome to GU Book Hub {{ user.username }}
-        {% else %} 
+        {% else %}
             Login to access more features
         {% endif %}
     </div>
@@ -30,19 +37,19 @@
         </ul>
         {% else %}
         <strong>There are no Subjects present.</strong>
-        {% endif %} 
+        {% endif %}
     </div>
 
     <div>
         <h2>Popular resources</h2>
-        {% if courses %} 
+        {% if courses %}
         <ul>
         {% for course in courses %}
             <li><a href="{% url 'gubookhub_app:course' course.subject.slug course.title%}">{{ course.title }}</a></li>
-        {% endfor %} 
+        {% endfor %}
         </ul>
         {% else %}
         <strong>There are no courses present.</strong>
-        {% endif %} 
+        {% endif %}
     </div>
-{% endblock %} 
+{% endblock %}
