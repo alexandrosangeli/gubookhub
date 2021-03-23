@@ -9,6 +9,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>
         GU Book Hub -
             {% block title_block %}
@@ -25,27 +26,33 @@
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-danger p-0">
-                <a class="navbar-brand p-2" href="{% url 'gubookhub_app:index' %}">GUBH</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:index' %}">Index</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:about' %}">About</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li> -->
-                        {% if user.is_authenticated %}
-                        <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
-                        {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
-                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
-                        {% endif %}
-                    </ul>
+            <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-danger shadow-sm">
+                <div class="container">
+                    <a class="navbar-brand p-1" href="{% url 'gubookhub_app:index' %}">
+                        <img src="https://i.imgur.com/tDLsI0F.png" width="40" height="40" alt="" class="d-inline-block align-middle mr-2">
+                        <span class="text-uppercase font-weight-bold">GU Book Hub</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:index' %}">Home</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:about' %}">About</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li> -->
+                            {% if user.is_authenticated %}
+                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                            {% endif %}
+                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -71,6 +78,9 @@
                 </main>
             </div>
         </div>
+            
+
+        
 
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -81,4 +91,3 @@
         <script src="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.js"></script>
     </body>
 </html>
-
