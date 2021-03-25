@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 {% load staticfiles %}
 {load template_tags}
 
@@ -10,6 +10,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>
         GU BookHub -
             {% block title_block %}
@@ -23,6 +24,10 @@
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
     </head> 
+
+
+    {% block style_block %} 
+    {% endblock %} 
 
     <body>
         <header>
@@ -54,7 +59,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-1 d-none d-md-block bg-secondary sidebar">
+                <nav class="col-md-1 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
                         Add Some Content Here Later
