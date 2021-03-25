@@ -27,7 +27,7 @@ SECRET_KEY = 'pcn4aye%#hy0w@x@&l7f50fcjhzj#$$gb*0c9itm&v2velo)0!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://gubookhub.pythonanywhere.com/']
+ALLOWED_HOSTS = ['gubookhub.pythonanywhere.com/']
 
 
 # Application definition
