@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 {% load staticfiles %}
-{% load template_tags %}
+{load template_tags}
 
 <html lang="en">
     <head>
@@ -10,10 +10,8 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css"/>
-
     <title>
-        GU Book Hub -
+        GU BookHub -
             {% block title_block %}
                 Glasgow University books and resources
             {% endblock %}
@@ -21,72 +19,60 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/4.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    
+
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
-
-    {% block style_block %}
-    <!-- load individual page css files here -->
-    {% endblock %} 
     </head> 
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg py-5 navbar-dark fixed-top bg-danger shadow-sm">
-                <div class="container">
-                    <a class="navbar-brand p-4" href="{% url 'gubookhub_app:index' %}">
-                        <img src="https://i.imgur.com/tDLsI0F.png" width="40" height="40" alt="" class="d-inline-block align-middle mr-2">
-                        <span class="text-uppercase font-weight-bold">GU Book Hub</span>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:index' %}">Home</a></li>
-                            <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:about' %}">About</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li> -->
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
-                            {% else %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
-                            {% endif %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li>
-                        </ul>
-                    </div>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-danger p-0">
+                <a class="navbar-brand p-2" href="{% url 'gubookhub_app:index' %}">GUBH</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:index' %}">Index</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:about' %}">About</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:search' %}">Search</a></li> -->
+                        {% if user.is_authenticated %}
+                        <li class="nav-item "><a class="nav-link" href="{% url 'gubookhub_app:add_book' %}">Add a Book</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
+                        <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>
+                        {% endif %}
+                    </ul>
                 </div>
             </nav>
         </header>
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <nav class="col-md-1 d-none d-md-block bg-secondary sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
                         Add Some Content Here Later
                     {% endblock %}
                     </div>
                 </nav>
-                
-                <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
+
+                <main role="main" class="col-md-9  ml-sm-auto col-lg-11 px-4">		
                     {% block body_block %}{% endblock %}
-                    
+
                     <!-- FOOTER -->
                     <footer>
                         <p class="float-right"><a href="#">Back to top</a></p>
-                        <p class="footer">&copy; 2021 GU Book Hub &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+                        <p>&copy; 2021 GU Book Hub &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
                     </footer>
                 </main>
             </div>
         </div>
-            
-
-        
 
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->

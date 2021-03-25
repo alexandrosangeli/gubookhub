@@ -16,18 +16,19 @@
         {% if books %}
         <ul>
             {% for book in books %}
-                {% if book.url %}
-                    <li>{{ book.title}} <br />
-                    <a href="{{ book.url }}">Get book here</a><br />
-                    Author: {{ book.author }} 
-                    Posted by: {{ book.user }}
-                    </li>
-                {% else %}
-                    <li>{{ book.title }} <br />
-                        Author: {{ book.author }} <br />
-                        Posted by: {{ book.user }}
-                    </li>
-                {% endif %}
+                <li>{{ book.title}} <br />
+                Author: {{ book.author}}<br />
+                Posted by: {{ book.user}} <br />
+                    {% if book.url %}
+                        <a href="{{ book.url }}">Reference link</a><br />
+                    {% else %}
+                        <form method="POST" action="{% url 'gubookhub_app:search' %}">
+                            {% csrf_token %}
+                            <input type="text" name="query" value="{{ book.title }}" hidden>
+                            <input type="submit" value="Search the Web">
+                        </form>
+                    {% endif %}
+                </li>
             {% endfor %}
         </ul>
         {% else %}

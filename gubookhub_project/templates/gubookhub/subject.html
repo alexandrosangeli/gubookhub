@@ -10,12 +10,14 @@
 {% endblock %}
 
 {% block body_block %}
+<p class="card-text">
+
     {% if subject %}
         <h1>{{ subject.name }}</h1>
         {% if courses %}
-        <ul>
+        <ul class="list-group">
             {% for course in courses %}
-            <li><a href="{% url 'gubookhub_app:course' subject.slug course.title %}">{{ course.title }}</a></li>
+            <li class="list-group-item"><a href="{% url 'gubookhub_app:course' subject.slug course.title %}">{{ course.title }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
@@ -24,4 +26,5 @@
     {% else %}
         The specified subject does not exist.
     {% endif %}
+    </p>
 {% endblock %}
