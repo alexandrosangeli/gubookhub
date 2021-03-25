@@ -12,8 +12,8 @@ from django.contrib import messages
 # Create your views here.
 
 def index(request):
-    subject_list = Subject.objects.order_by('name')
-    course_list = Course.objects.order_by('title')
+    subject_list = Subject.objects.order_by('name')[:10]
+    course_list = Course.objects.order_by('level')[:10]
     book_list = Book.objects.order_by('title')
 
     context_dict = {}

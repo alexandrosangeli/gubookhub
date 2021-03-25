@@ -5,51 +5,82 @@
     Homepage
 {% endblock %}
 
+{% block style_block %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css"/>
+{% endblock %} 
+
 {% block body_block %}
-    <h1>University of Glasgow</h1>
-    <div>
-      {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-        Book Hub
-        <strong>{{ boldmessage }}</strong>
-    </div>
+    <div class="jumbotron p-4">
+		<div class="container">
+			<h1 class="jumbotron-heading">University of Glasgow</h1>
+            <div>
+                {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                <h2 class="h2">Book Hub</h2>
+            </div>
+		</div>
+	</div>
 
     <div>
-        {% if user.is_authenticated %}
-            Welcome to GU Book Hub {{ user.username }}
-        {% else %}
-            Login to access more features
-        {% endif %}
+        <h5 class="h5">
+            {% if user.is_authenticated %}
+            Welcome to the Book Hub, {{ user.username }}!
+            {% else %}
+            Login to access more features...
+            {% endif %}
+        </h2>
     </div>
 
-    <div>
-        <h2> Subjects </h2>
-        {% if subjects %}
-        <ul>
-        {% for subject in subjects %}
-            <li><a href="{% url 'gubookhub_app:subject' subject.slug %}">{{ subject.name }}</a></li>
-        {% endfor %}
-        </ul>
-        {% else %}
-        <strong>There are no Subjects present.</strong>
-        {% endif %}
-    </div>
+    <div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card mb-6">
+					<div class="card-body">
+						<h2>Available Subjects</h2>
+						<p class="card-text">
+							{% if subjects %}
+							<ul class="list-group">
+							{% for subject in subjects %}
+								<li class="list-group-item">
+								<a href="{% url 'gubookhub_app:subject' subject.slug %}">
+									{{ subject.name }}</a>
+								</li>
+							{% endfor %}
+							</ul>
+							{% else %}
+							<strong>There are no subjects present.</strong>
+							{% endif %}
+						</p>
+					</div>
+				</div>
+			</div>
 
-    <div>
-        <h2>Popular resources</h2>
-        {% if courses %}
-        <ul>
-        {% for course in courses %}
-            <li><a href="{% url 'gubookhub_app:course' course.subject.slug course.title%}">{{ course.title }}</a></li>
-        {% endfor %}
-        </ul>
-        {% else %}
-        <strong>There are no courses present.</strong>
-        {% endif %}
-    </div>
+            <div class="col-md-6">
+				<div class="card mb-6">
+					<div class="card-body">
+						<h2>Popular Courses</h2>
+						<p class="card-text">
+							{% if courses %}
+							<ul class="list-group">
+							{% for course in courses %}
+								<li class="list-group-item">
+									<a href="{% url 'gubookhub_app:course' course.subject.slug course.title%}">
+										{{ course.title }}</a>
+								</li>
+							{% endfor %}
+							</ul>
+							{% else %}
+							<strong>There are no Courses present.</strong>
+							{% endif %}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

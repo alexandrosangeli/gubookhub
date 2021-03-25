@@ -9,17 +9,7 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
-    <style>
-        .container-fluid{
-            padding-top: 2%; 
-        }
-        .container{
-            position: relative;
-            right: 160px;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css"/>
 
     <title>
         GU Book Hub -
@@ -33,13 +23,17 @@
     
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.2/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    {% block style_block %}
+    <!-- load individual page css files here -->
+    {% endblock %} 
     </head> 
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-lg py-3 navbar-dark fixed-top bg-danger shadow-sm">
+            <nav class="navbar navbar-expand-lg py-5 navbar-dark fixed-top bg-danger shadow-sm">
                 <div class="container">
-                    <a class="navbar-brand p-1" href="{% url 'gubookhub_app:index' %}">
+                    <a class="navbar-brand p-4" href="{% url 'gubookhub_app:index' %}">
                         <img src="https://i.imgur.com/tDLsI0F.png" width="40" height="40" alt="" class="d-inline-block align-middle mr-2">
                         <span class="text-uppercase font-weight-bold">GU Book Hub</span>
                     </a>
@@ -70,7 +64,7 @@
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-md-2 d-none d-md-block bg-secondary sidebar">
+                <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
                         Add Some Content Here Later
