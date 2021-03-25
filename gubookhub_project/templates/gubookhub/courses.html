@@ -1,0 +1,11 @@
+<!-- NOTE THAT THIS TEMPLATE IS DIFFERENT FROM course.html !!!!!!!!!!!!!!!  -->
+
+<ul>
+    {% if courses %}
+        {% for course in courses %}
+            <li><a href="{% url 'gubookhub_app:course' course.subject.slug course.title %}">{{ course.title }}</a></li>
+        {% endfor %}
+    {% else %}
+        <li><strong>No courses found.</strong></li>
+    {% endif %}
+</ul>

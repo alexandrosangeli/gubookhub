@@ -7,7 +7,9 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
 from gubookhub_app.models import Subject, Course, Book, User
+from gubookhub_app.helpers import list_courses
 from django.contrib import messages
+from django.views.generic.base import View
 
 # Create your views here.
 
@@ -110,3 +112,18 @@ def edit_profile(request):
     context_dict['completed'] = completed
 
     return render(request, 'gubookhub/edit_profile.html', context_dict)
+
+class CourseListingView(View):
+    def get(self, request):
+        if "suggestion" in request.GET:
+            suggestion = request.GET["suggestion"]
+        else:
+            suggestion = ""
+
+        course_list = list_courses(max_results=25, starts_with=suggestion)
+        print(course_list)
+        if len(course_list) == 0:
+            course_list = Course.objects.order_by('title')
+
+        #return HttpResponse("Hi")
+        return render(request, 'gubookhub/courses.html', {'courses': course_list})

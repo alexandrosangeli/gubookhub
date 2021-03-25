@@ -9,9 +9,10 @@ urlpatterns = [
 	#path('favourites/', views.favourites, name='favourites'),
 	path('search/', views.search, name='search'),
 	path('add_book/', views.add_book, name='add_book'),
+	path('suggest/', views.CourseListingView.as_view(), name="suggest"),
 	path('edit_profile/', views.edit_profile, name='edit_profile'),
-	path('<slug:subject_name_slug>/', views.subject, name='subject'),
-	path('<slug:subject_name_slug>/<course_title>/', views.course, name='course'),
+	path('items/<slug:subject_name_slug>/', views.subject, name='subject'),
+	path('items/<slug:subject_name_slug>/<course_title>/', views.course, name='course'),
 	#path('<slug:subject_name_slug>/<slug:course_name_slug>/<slug:book_name_slug>/', views.books, name='books'),
 
 ]

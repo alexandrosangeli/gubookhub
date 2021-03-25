@@ -1,86 +1,81 @@
 {% extends 'gubookhub/base.html' %}
 {% load staticfiles %}
+{% load template_tags %}
 
 {% block title_block %}
-    Homepage
+Homepage
 {% endblock %}
 
 {% block style_block %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css"/>
-{% endblock %} 
+<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css" />
+{% endblock %}
 
 {% block body_block %}
-    <div class="jumbotron p-4">
-		<div class="container">
-			<h1 class="jumbotron-heading">University of Glasgow</h1>
-            <div>
-                {% if messages %}
-                <ul class="messages">
-                {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-                </ul>
-                {% endif %}
-                <h2 class="h2">Book Hub</h2>
-            </div>
+<div class="jumbotron p-4">
+	<div class="container">
+		<h1 class="jumbotron-heading">University of Glasgow</h1>
+		<div>
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+					{% endfor %}
+			</ul>
+			{% endif %}
+			<h2 class="h2">Book Hub</h2>
 		</div>
 	</div>
+</div>
 
-    <div>
-        <h5 class="h5">
-            {% if user.is_authenticated %}
-            Welcome to the Book Hub, {{ user.username }}!
-            {% else %}
-            Login to access more features...
-            {% endif %}
-        </h2>
-    </div>
+<div>
+	<h5 class="h5">
+		{% if user.is_authenticated %}
+		Welcome to the Book Hub, {{ user.username }}!
+		{% else %}
+		Login to access more features...
+		{% endif %}
+		</h2>
+</div>
 
-    <div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card mb-6">
-					<div class="card-body">
-						<h2>Available Subjects</h2>
-						<p class="card-text">
-							{% if subjects %}
-							<ul class="list-group">
-							{% for subject in subjects %}
-								<li class="list-group-item">
-								<a href="{% url 'gubookhub_app:subject' subject.slug %}">
-									{{ subject.name }}</a>
-								</li>
-							{% endfor %}
-							</ul>
-							{% else %}
-							<strong>There are no subjects present.</strong>
-							{% endif %}
-						</p>
-					</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card mb-6">
+				<div class="card-body">
+					<h2>Available Subjects</h2>
+					<p class="card-text">
+						{% if subjects %}
+					<ul class="list-group">
+						{% for subject in subjects %}
+						<li class="list-group-item">
+							<a href="{% url 'gubookhub_app:subject' subject.slug %}">
+								{{ subject.name }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+					{% else %}
+					<strong>There are no subjects present.</strong>
+					{% endif %}
+					</p>
 				</div>
 			</div>
+		</div>
 
-            <div class="col-md-6">
-				<div class="card mb-6">
-					<div class="card-body">
+		<div class="col-md-6">
+			<div class="card mb-6">
+				<div class="card-body">
+					
 						<h2>Popular Courses</h2>
 						<p class="card-text">
-							{% if courses %}
-							<ul class="list-group">
-							{% for course in courses %}
-								<li class="list-group-item">
-									<a href="{% url 'gubookhub_app:course' course.subject.slug course.title%}">
-										{{ course.title }}</a>
-								</li>
-							{% endfor %}
-							</ul>
-							{% else %}
-							<strong>There are no Courses present.</strong>
-							{% endif %}
+							<input type="search" id="search-input" class="form-control ds-input"
+								placeholder="Search..." />
+								<div id="course-listing">
+									{% get_courses_list %}
+								</div>
 						</p>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %}
