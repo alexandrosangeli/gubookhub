@@ -64,14 +64,15 @@ Homepage
 		<div class="col-md-6">
 			<div class="card mb-6">
 				<div class="card-body">
-					
 						<h2>Popular Courses</h2>
 						<p class="card-text">
-							<input type="search" id="search-input" class="form-control ds-input"
-								placeholder="Search..." />
-								<div id="course-listing">
-									{% get_courses_list %}
-								</div>
+                            <input type="search" id="search-input" class="form-control ds-input"
+								placeholder="Search Courses" />
+                            <ul class="list-group">
+                                    {% get_courses_list 10 %}
+                                </li>
+                            
+                            </ul>
 						</p>
 				</div>
 			</div>
