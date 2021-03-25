@@ -6,22 +6,52 @@
 {% endblock %}
 
 
+{% block style_block %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}" type="text/css" />
+{% endblock %}
+
 {% block body_block %} 
-    <h1>Search:</h1>
-
-    <form action="{% url 'gubookhub_app:search' %}", method="POST">
-
-        {% csrf_token %}
-        <input type="text", name="query", id="query">
-        <button type="submit">Search</button>
-    </form>
-
-    <h2>Results:</h2>
-    <div>
-        {% if results %}
-            {% for result in results %}
-                <p>{{ result.title }} by {{ result.authors }}</p>
-            {% endfor %}
-        {% endif %}
+<div class="jumbotron p-4">
+    <div class="container">
+        <h1 class="jumbotron-heading">Search Books</h1>
     </div>
+</div>
+    
+<div>
+    <form class="form-inline"
+        id="search-form"
+            method="POST"
+            action="{% url 'gubookhub_app:search' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <input class="form-control"
+                    type="text"
+                    size="50"
+                    name="query"
+                    id="query"
+                    value= "{{ query }}" />
+        </div>
+
+        <button class="btn btn-danger"
+                type="submit"
+                name="submit">Search</button>
+    </form>
+</div>
+
+<div>
+    {% if results %}
+        <h2>Results:</h2>
+
+        <div class="list-group">
+            {% for result in results %}
+                <div class="list-group-item">
+                    <h3 class="list-group-item-heading">
+                        <p class="list-group-item"> {{ result.title }} by {{ result.authors }}</p>
+                    </h3>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %} 
