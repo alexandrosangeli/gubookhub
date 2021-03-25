@@ -7,7 +7,7 @@ Homepage
 {% endblock %}
 
 {% block style_block %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css" />
+<!-- <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css" /> -->
 {% endblock %}
 
 {% block body_block %}
@@ -22,7 +22,7 @@ Homepage
 					{% endfor %}
 			</ul>
 			{% endif %}
-			<h2 class="h2">Book Hub</h2>
+			<h2 class="h2">BookHub</h2>
 		</div>
 	</div>
 </div>
@@ -30,7 +30,7 @@ Homepage
 <div>
 	<h5 class="h5">
 		{% if user.is_authenticated %}
-		Welcome to the Book Hub, {{ user.username }}!
+		Welcome to the BookHub, {{ user.username }}!
 		{% else %}
 		Login to access more features...
 		{% endif %}
