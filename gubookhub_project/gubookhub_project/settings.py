@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gubookhub_app',
     'registration',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

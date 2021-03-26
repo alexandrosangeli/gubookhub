@@ -45,6 +45,7 @@ class ProfileForm(forms.ModelForm):
 
     subject = forms.ModelChoiceField(queryset=subject_list)
     level = forms.IntegerField(widget=forms.Select(choices=level_choices))
+
     class Meta:
         model = Profile
         fields = ('level', 'subject', 'picture',)

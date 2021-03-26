@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
-from gubookhub_app.models import Subject, Course, Book, User
+from gubookhub_app.models import Subject, Course, Book, User, Profile
 from gubookhub_app.helpers import list_courses
 from django.contrib import messages
 from django.views.generic.base import View
@@ -88,13 +88,12 @@ def edit_profile(request):
     completed = False
 
     if request.method == 'POST':
-
         try:
             form = ProfileForm(request.POST, instance=request.user.profile)
         except User.profile.RelatedObjectDoesNotExist:
             form = ProfileForm(request.POST)
 
-        if form.is_valid:
+        if form.is_valid():
             profile = form.save(commit=False)
 
             if 'picture' in request.FILES:
@@ -111,6 +110,12 @@ def edit_profile(request):
 
     context_dict['form'] = form
     context_dict['completed'] = completed
+    context_dict['username'] = request.user.username
+    context_dict['email'] = request.user.email
+
+    if hasattr(request.user, 'profile'):
+        context_dict['profile'] = request.user.profile
+        
 
     return render(request, 'gubookhub/edit_profile.html', context_dict)
 

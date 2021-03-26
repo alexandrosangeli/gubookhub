@@ -1,31 +1,10 @@
- /* main content of body of page */
- /* .container-fluid{
-    position: absolute;
-    padding-top: 11%; 
-    right: 25px;
-} */
-/* whole navbar */
-/* .container{
-    position: absolute;
-    top: 0;
-    right: 325px;
-} */
-
 /* nav bar buttons*/
 .navbar.navbar-expand-lg.py-5.navbar-dark.fixed-top.bg-danger.shadow-sm li a{
     font-size: 16pt;
     font-weight: bold;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-family: "Times New Roman", Times, serif;
-} 
-
-/* brand logo */
-/* .d-inline-block.align-middle.mr-2{
-    position: relative;
-    top: 0;
-    height: 60px;
-    width: 52px;
-} */
+}
 
 /* brand logo text and icon */
 .navbar-brand.p-4{
