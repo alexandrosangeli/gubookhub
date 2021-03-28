@@ -9,22 +9,44 @@
     {% endif %}
 {% endblock %}
 
-{% block body_block %}
-<p class="card-text">
+{% block style_block %}
+<link rel="stylesheet" href="{% static 'css/subjects.css' %}" type="text/css" />
+{% endblock %}
 
-    {% if subject %}
-        <h1>{{ subject.name }}</h1>
-        {% if courses %}
-        <ul class="list-group">
-            {% for course in courses %}
-            <li class="list-group-item"><a href="{% url 'gubookhub_app:course' subject.slug course.title %}">{{ course.title }}</a></li>
-            {% endfor %}
-        </ul>
-        {% else %}
-            <strong>No courses currently in this subject.</strong>
-        {% endif %}
-    {% else %}
-        The specified subject does not exist.
-    {% endif %}
-    </p>
+{% block body_block %}
+<div class="jumbotron p-4">
+	<div class="container">
+        {% if subject %}
+		<h1 class="jumbotron-heading">{{ subject.name }}</h1>
+    </div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card mb-2">
+				<div class="card-body">
+                    <h2>Available Courses</h2>
+					<p class="card-text">
+						{% if courses %}
+					<ul class="list-group">
+						{% for course in courses %}
+						<li class="list-group-item">
+							<a href="{% url 'gubookhub_app:course' subject.slug course.title %}">
+								{{ course.title }}</a>
+						</li>
+						{% endfor %}
+					</ul>
+					{% else %}
+					<strong>No courses currently in this subject.</strong>
+					{% endif %}
+					</p>
+                {% else %}
+                    The specified subject does not exist.
+                {% endif %}
+				</div>
+			</div>
+		</div>
+    </div>
+</div>
 {% endblock %}
