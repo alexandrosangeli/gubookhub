@@ -38,7 +38,8 @@ def about(request):
 def search(request):
     query = ''
     results = []
-    
+    context_dict = {}
+
     if request.method == "POST":
         query = request.POST["query"].strip()
 
@@ -47,7 +48,10 @@ def search(request):
             for item in api_response:
                 results.append(item['volumeInfo'])
 
-    return render(request, 'gubookhub/search.html', context={'results':results, 'query':query})
+            context_dict['results'] = results
+            context_dict['query'] = query
+
+    return render(request, 'gubookhub/search.html', context=context_dict)
 
 def subject(request, subject_name_slug):
 

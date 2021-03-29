@@ -1,13 +1,11 @@
 import requests
 import json
-#from pprint import pprint
+from pprint import pprint
 
 def run_query(query):
     
-    url = "https://www.googleapis.com/books/v1/volumes?q=" + query.strip()
+    url = "https://www.googleapis.com/books/v1/volumes?q=" + query.strip() + "&maxResults=40"
     response = requests.get(url).json()
-    print(type(response))
-    #pprint(response['items'])
     return response['items']
 
 if __name__ == '__main__':
