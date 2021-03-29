@@ -34,7 +34,7 @@
 						<input name="{{ subject.name }}" type="search" id="search-input" class="form-control ds-input"
 								placeholder="Search Courses by Course Code" />
 						<div id="course-listing">
-							{% get_courses_list 10 subject.name %}
+							{% get_courses_list subject.name %}
 						</div>
 						
 					</ul>
