@@ -7,3 +7,8 @@ register = template.Library()
 def get_courses_list(subject_name):
     subject = Subject.objects.get(name=subject_name)
     return {'courses': Course.objects.filter(subject=subject).order_by('title')}
+
+@register.inclusion_tag('gubookhub/subjects.html')
+def get_subjects_list(current_subject=None):
+    return {'subjects' : Subject.objects.all(), 'current_subject':current_subject}
+

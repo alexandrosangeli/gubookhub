@@ -1,16 +1,25 @@
 <!-- NOTE THAT THIS TEMPLATE IS DIFFERENT FROM subject.html !!!!!!!!!!!!!!!  -->
 
-<p class="card-text">
-    {% if courses %}
-<ul class="list-group">
-    {% for course in courses %}
-    <li class="list-group-item">
-        <a href="{% url 'gubookhub_app:course' course.subject.slug course.title %}">
-            {{ subject.name }}</a>
-    </li>
-    {% endfor %}
+<ul class="nav flex-column">
+    {% if subjects %}
+        {% for subject in subjects %}
+            {% if subject == current_subject %}
+                <li class="nav-item">
+                    <strong>
+                        <a class="nav-link active" href="{% url 'gubookhub_app:subject' subject.slug %}">
+                            <span data-feather="archive"></span>{{ subject.name }}
+                        </a>
+                    </strong>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'gubookhub_app:subject' subject.slug %}">
+                        <span data-feather="archive"></span>{{ subject.name }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <li class="nav-item">There are no categories present.</li>
+    {% endif %}
 </ul>
-{% else %}
-<strong>There are no subjects present.</strong>
-{% endif %}
-</p>

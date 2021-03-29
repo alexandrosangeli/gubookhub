@@ -29,6 +29,7 @@
     {% block style_block %} 
     {% endblock %} 
 
+
     <body>
         <header>
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-danger p-0">
@@ -62,7 +63,7 @@
                 <nav class="col-md-1 d-none d-md-block bg-light sidebar">
                     <div class="sidebar-sticky">
                     {% block sidebar_block %}
-                        Add Some Content Here Later
+                        {% get_subjects_list subject %}
                     {% endblock %}
                     </div>
                 </nav>
