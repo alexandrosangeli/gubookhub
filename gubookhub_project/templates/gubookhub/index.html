@@ -38,7 +38,7 @@ Homepage
 </div>
 
 <div class="container">
-	<div class="row">
+	
 		<div class="col-md-6">
 			<div class="card mb-6">
 				<div class="card-body">
@@ -60,23 +60,6 @@ Homepage
 				</div>
 			</div>
 		</div>
-
-		<div class="col-md-6">
-			<div class="card mb-6">
-				<div class="card-body">
-						<h2>Top Courses</h2>
-						<p class="card-text">
-                            <input type="search" id="search-input" class="form-control ds-input"
-								placeholder="Search Courses by Course Code" />
-                            <ul class="list-group">
-								<div id="course-listing">
-                                    {% get_courses_list 10 %}
-								</div>
-                            </ul>
-						</p>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 </div>
 {% endblock %}

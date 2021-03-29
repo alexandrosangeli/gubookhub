@@ -1,8 +1,9 @@
 from django import template
-from gubookhub_app.models import Course
+from gubookhub_app.models import Course, Subject
 
 register = template.Library()
 
 @register.inclusion_tag('gubookhub/courses.html')
-def get_courses_list(num):
-    return {'courses': Course.objects.order_by('level')[:num]}
+def get_courses_list(num, subject_name):
+    subject = Subject.objects.get(name=subject_name)
+    return {'courses': Course.objects.filter(subject=subject).order_by('level')[:num]}

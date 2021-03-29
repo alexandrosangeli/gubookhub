@@ -124,10 +124,12 @@ class CourseListingView(View):
     def get(self, request):
         if "suggestion" in request.GET:
             suggestion = request.GET["suggestion"]
+            subject = request.GET["subject"]
         else:
             suggestion = ""
 
-        course_list = list_courses(max_results=25, starts_with=suggestion)
+        course_list = list_courses(subject_name=subject, max_results=25, starts_with=suggestion)
+        print(course_list)
         if len(course_list) == 0:
             course_list = Course.objects.order_by('title')
 
