@@ -10,6 +10,8 @@ from gubookhub_app.models import Subject, Course, Book, User, Profile
 from gubookhub_app.helpers import list_courses
 from django.contrib import messages
 from django.views.generic.base import View
+from django.conf import settings
+
 
 # Create your views here.
 
@@ -115,8 +117,7 @@ def edit_profile(request):
 
     if hasattr(request.user, 'profile'):
         context_dict['profile'] = request.user.profile
-        
-
+   
     return render(request, 'gubookhub/edit_profile.html', context_dict)
 
 class CourseListingView(View):
