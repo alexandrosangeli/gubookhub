@@ -128,8 +128,7 @@ class CourseListingView(View):
         else:
             suggestion = ""
 
-        course_list = list_courses(subject_name=subject, max_results=25, starts_with=suggestion)
-        print(course_list)
+        course_list = list_courses(subject_name=subject, max_results=25, contains=suggestion)
         if len(course_list) == 0:
             subject_obj = Subject.objects.get(name=subject)
             course_list = Course.objects.filter(subject=subject_obj).order_by('title')
