@@ -42,6 +42,13 @@ def add_course(subject, title, level):
     return course
 
 if __name__ == '__main__':
+
+    if Subject.objects.all() or Course.objects.all():
+        print("Removing existing data...")
+        Subject.objects.all().delete()
+        Course.objects.all().delete()
+        print("Done.")
+
     print("Starting to populate...")
     populate()
     print("Done.")
