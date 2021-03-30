@@ -11,55 +11,40 @@ Homepage
 {% endblock %}
 
 {% block body_block %}
-<div class="jumbotron p-4">
-	<div class="container">
-		<h1 class="jumbotron-heading">University of Glasgow</h1>
-		<div>
-			{% if messages %}
-			<ul class="messages">
-				{% for message in messages %}
-				<li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-					{% endfor %}
-			</ul>
-			{% endif %}
-			<h2 class="h2">BookHub</h2>
-		</div>
-	</div>
+
+<div class="img-container">
+	<img id="uofg-background" src="{% static 'uofg_header.jpeg' %}" alt="">
+	<h1 id="title" class="centered">University of Glasgow BookHub</h1>
 </div>
+
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+	{{ message }}
+</div>
+{% endfor %}
 
 <div>
 	<h5 class="h5">
 		{% if user.is_authenticated %}
-		Welcome to the BookHub, {{ user.username }}!
+		<!-- <br>
+		Welcome to the BookHub, {{ user.username }}! -->
 		{% else %}
-		Login to access more features...
+		<div class="alert alert-info" role="alert">
+			Login to access more features!
+		</div>
 		{% endif %}
 		</h2>
 </div>
 
-<div class="container">
-	
-		<div class="col-md-6">
-			<div class="card mb-6">
-				<div class="card-body">
-					<h2>Available Subjects</h2>
-					<p class="card-text">
-						{% if subjects %}
-					<ul class="list-group">
-						{% for subject in subjects %}
-						<li class="list-group-item">
-							<a href="{% url 'gubookhub_app:subject' subject.slug %}">
-								{{ subject.name }}</a>
-						</li>
-						{% endfor %}
-					</ul>
-					{% else %}
-					<strong>There are no subjects present.</strong>
-					{% endif %}
-					</p>
-				</div>
-			</div>
-		</div>
-	
+<div class="input-group mb-3">
+	<div class="input-group-prepend">
+		<span class="input-group-text" id="basic-addon1">Filter Subjects</span>
+	</div>
+	<input id="subject-search-input" type="text" class="form-control" placeholder="e.g. Engi..." aria-label="Username"
+		aria-describedby="basic-addon1">
 </div>
+<div id="subject-listing">
+	{% get_subjects_cards %}
+</div>
+
 {% endblock %}

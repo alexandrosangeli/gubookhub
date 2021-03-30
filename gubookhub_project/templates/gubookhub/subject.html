@@ -31,7 +31,7 @@
 					<p class="card-text">
 						{% if courses %}
 					<ul class="list-group">
-						<input name="{{ subject.name }}" type="search" id="search-input" class="form-control ds-input"
+						<input name="{{ subject.name }}" type="search" id="course-search-input" class="form-control ds-input"
 								placeholder="Search Courses by Course Code" />
 						<div id="course-listing">
 							{% get_courses_list subject.name %}

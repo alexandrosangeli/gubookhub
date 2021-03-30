@@ -12,3 +12,10 @@ def list_courses(subject_name, max_results=0, contains=""):
             course_list = course_list[:max_results]
 
     return course_list
+
+def list_subjects(contains=""):
+    subject_list = []
+    if contains:
+        subject_list = Subject.objects.filter(name__icontains=contains).order_by('name')
+
+    return subject_list

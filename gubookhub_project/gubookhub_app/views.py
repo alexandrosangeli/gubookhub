@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
 from gubookhub_app.models import Subject, Course, Book, User, Profile
-from gubookhub_app.helpers import list_courses
+from gubookhub_app.helpers import list_courses, list_subjects
 from django.contrib import messages
 from django.views.generic.base import View
 from django.conf import settings
@@ -138,3 +138,16 @@ class CourseListingView(View):
             course_list = Course.objects.filter(subject=subject_obj).order_by('title')
 
         return render(request, 'gubookhub/courses.html', {'courses': course_list})
+
+class SubjectListingView(View):
+    def get(self, request):
+        if "suggestion" in request.GET:
+            suggestion = request.GET["suggestion"]
+        else:
+            suggestion = ""
+
+        subjects_list = list_subjects(contains=suggestion)
+        if len(subjects_list) == 0:
+            subjects_list = Subject.objects.all().order_by('name')
+
+        return render(request, 'gubookhub/subjects_card.html', {'subjects': subjects_list})

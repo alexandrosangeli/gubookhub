@@ -46,3 +46,27 @@ h2{
     font-weight: 100;
     font-family:serif;
 }
+
+#uofg-background {
+    width: 100%;
+    z-index: 0;
+    opacity: 95%;
+  }
+
+.img-container {
+position: relative;
+text-align: center;
+color: white;
+}
+
+.centered {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+#title {
+    color: rgb(255, 255, 255);
+    text-shadow: 0 0 10px rgb(88, 13, 13);
+}

@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+<div class="card-deck">
+
+{% for subject in subjects %}
+        <a href="{% url 'gubookhub_app:subject' subject.slug %}">
+        <div class="card">
+          <img height="125" width="100" class="card-img-top" src="{% static 'subject_images/' %}{{ subject.name }}" alt="Subject Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ subject.name }}</h5>
+          </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
