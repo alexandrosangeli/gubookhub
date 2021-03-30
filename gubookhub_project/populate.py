@@ -16,23 +16,6 @@ def level(title):
             continue
 
 def populate():
-
-    eng_courses = [
-        {'title' : 'ENG1003', 'level' : 1},
-        {'title' : 'ENG3035', 'level' : 3},
-    ]
-
-    cs_courses = [
-        {'title' : 'COMPSCI1001', 'level' : 1},
-        {'title' : 'COMPSCI2004', 'level' : 2},
-        {'title' : 'COMPSCI4014', 'level' : 3},
-    ]
-
-    subjects = {
-        'Computing Science' : {'courses' : cs_courses},
-        'Mechanical Engineering' : {'courses' : eng_courses},
-    }
-
     with open("population_data/subjects", "r") as sf:
         subject_list = sf.readlines()
         for subject in subject_list:
@@ -42,12 +25,6 @@ def populate():
                 course_list = cf.readline().split(" ")
                 for course in course_list:
                     add_course(s, course, level(course))
-
-
-    # for subject, subject_data in subjects.items():
-    #     s = add_subject(subject)
-    #     for course in subject_data['courses']:
-    #         add_course(s, course['title'], course['level'])
 
     for s in Subject.objects.all():
         for c in Course.objects.filter(subject=s):
