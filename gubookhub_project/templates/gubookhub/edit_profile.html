@@ -23,14 +23,19 @@
         <div class="col-md-4 border-right">
             <h5 class="jumbotron-heading align-items-center text-center">Your current profile details</h2>
             <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded-circle mt-5" src="">
-                {% if profile %} 
+                {% if profile %}  
+                {% if profile.picture %} 
                 <span class="img-fluid"><img class="rounded-circle mt-5" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="150" height="150"></span>
+                {% else %} 
+                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
+                {% endif %} 
                 <span class="font-weight-light">Usename: {{ username }}</span>
                 <span class="text-black-50">Email: {{ email }}</span>
                 <span class="text-black-50">Level: {{ profile.level }}</span>
                 <span class="text-black-50">Subject: {{ profile.subject }}</span>
 
                 {% else %} 
+                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
                 <span class="font-weight-light">Usename: {{ username }}</span><span class="text-black-50">Email: {{ email }}</span>
                 {% endif %}
             </div>
