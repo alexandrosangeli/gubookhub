@@ -1,5 +1,7 @@
 from django import template
 from gubookhub_app.models import Course, Subject
+from gubookhub_app.helpers import list_split
+
 
 register = template.Library()
 
@@ -14,5 +16,5 @@ def get_subjects_list(current_subject=None):
 
 @register.inclusion_tag('gubookhub/subjects_card.html')
 def get_subjects_cards():
-    return {'subjects' : Subject.objects.all()}
+    return {'subjects_output' : list_split(Subject.objects.all(),6)}
 

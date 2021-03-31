@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
 from gubookhub_app.models import Subject, Course, Book, User, Profile
-from gubookhub_app.helpers import list_courses, list_subjects
+from gubookhub_app.helpers import list_courses, list_subjects, list_split
 from django.contrib import messages
 from django.views.generic.base import View
 from django.conf import settings
@@ -150,4 +150,8 @@ class SubjectListingView(View):
         if len(subjects_list) == 0:
             subjects_list = Subject.objects.all().order_by('name')
 
-        return render(request, 'gubookhub/subjects_card.html', {'subjects': subjects_list})
+        print("hi")
+        subjects_output = list_split(subjects_list,6)
+        print(subjects_output)
+
+        return render(request, 'gubookhub/subjects_card.html', {'subjects_output': subjects_output})
