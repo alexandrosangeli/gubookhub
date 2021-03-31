@@ -1,0 +1,71 @@
+{% extends 'gubookhub/base.html' %} 
+{% load staticfiles %} 
+
+{% block title_block %} 
+    Profile Page
+{% endblock %}
+
+{% block style_block %}
+<link rel="stylesheet" href="{% static 'css/about_page.css' %}" type="text/css" />
+{% endblock %}
+
+
+{% block body_block %} 
+<div class="jumbotron p-4">
+	<div class="container">
+		<h1 class="jumbotron-heading">{{ username }}'s Profile</h1>
+    </div>
+</div>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    
+
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded-circle mt-2" src="">
+                {% if profile %}  
+                {% if profile.picture %} 
+                <span class="img-fluid"><img class="rounded-circle mt-5" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="150" height="150"></span>
+                {% else %} 
+                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
+                {% endif %} 
+
+                {% else %} 
+                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-4 border-right">
+            <h5 class="jumbotron-heading align-items-center text-center">Your current profile details</h5>
+            <div class="p-3 py-5">
+                <div class="d-flex flex-column align-items-center text-center p-5 py-5">
+                {% if profile %}  
+                <span class="font-weight-light">Usename: {{ username }}</span>
+                <span class="text-black-50">Email: {{ email }}</span>
+                <span class="text-black-50">Level: {{ profile.level }}</span>
+                <span class="text-black-50">Subject: {{ profile.subject }}</span>
+                {% else %} 
+                <span class="font-weight-light">Usename: {{ username }}</span><span class="text-black-50">Email: {{ email }}</span>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 border-right">
+            <h5 class="jumbotron-heading align-items-center text-center">Books contributed by {{ username }}</h5>
+            <div class="p-3 py-5">
+                <div class="d-flex flex-column align-items-center text-center p-5 py-5">
+                {% if books %} 
+                {% for book in books %} 
+                    <p class="list-group-item"><a href="{% url 'gubookhub_app:course' book.course.subject.slug book.course.title %}">{{ book.course }}</a> : {{ book }}</p>
+                {% endfor %} 
+                {% endif %} 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 

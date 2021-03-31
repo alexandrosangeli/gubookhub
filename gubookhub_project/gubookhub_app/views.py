@@ -35,6 +35,22 @@ def about(request):
 
     return render(request, 'gubookhub/about.html', context = context_dict)
 
+def profile_page(request):
+    context_dict = {}
+
+    user = request.user
+
+    context_dict['username'] = user.username
+    context_dict['email'] = user.email
+
+    if hasattr(user, 'profile'):
+        context_dict['profile'] = user.profile
+
+    context_dict['books'] = Book.objects.filter(user=user)
+
+    return render(request, 'gubookhub/profile_page.html', context=context_dict)
+
+
 def search(request):
     query = ''
     results = []
