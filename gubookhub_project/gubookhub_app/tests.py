@@ -1,14 +1,60 @@
 import os
+import gubookhub_app.models
+import tempfile
 from django.test import TestCase
 from django.urls import reverse, resolve
+from django.db import models
 from django.forms import fields as django_fields
 from django.conf import settings
-from gubookhub_app.models import Book, Course
 from gubookhub_app import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
+def create_user_object():
+    user = User.objects.get_or_create(username='testuser',
+                                      first_name='Test',
+                                      last_name='User',
+                                      email='test@test.com')[0]
+    user.set_password('testabc123')
+    user.save()
+
+    return user
 
 class UserAuthenticationTests(TestCase):
-     def test_user_form(self):
+    def test_userprofile_class(self):
+
+        user_profile = gubookhub_app.models.User()
+
+        expected_attributes = {
+            'username': 'testuser',
+            'first_name': "Test",
+            'last_name': 'User',
+            'email': "test@test.com",
+        }
+
+        expected_types = {
+            'username': models.fields.CharField,
+            'first_name': models.fields.CharField,
+            'last_name': models.fields.CharField,
+            'email': models.fields.EmailField,
+        }
+
+        found_count = 0
+
+        for attr in user_profile._meta.fields:
+            attr_name = attr.name
+
+            for expected_attr_name in expected_attributes.keys():
+                if expected_attr_name == attr_name:
+                    found_count += 1
+
+                    self.assertEqual(type(attr), expected_types[attr_name], f"The type of attribute for '{attr_name}' was '{type(attr)}'; we expected '{expected_types[attr_name]}'. Check your definition of the UserProfile model.")
+                    setattr(user_profile, attr_name, expected_attributes[attr_name])
+
+        self.assertEqual(found_count, len(expected_attributes.keys()), f"In the UserProfile model, we found {found_count} attributes, but were expecting {len(expected_attributes.keys())}. Check your implementation and try again.")
+        user_profile.save()
+
+    def test_user_form(self):
         self.assertTrue('UserForm' in dir(forms), "UserForm is not present in forms.py.")
 
         user_form = forms.UserForm()
@@ -29,9 +75,23 @@ class UserAuthenticationTests(TestCase):
             self.assertEqual(expected_field, type(fields[expected_field_name]), f"The field {expected_field_name} in UserForm was not of the correct type. Expected {expected_field}; got {type(fields[expected_field_name])}.")
 
 class StructureTests(TestCase):
+    fixtures = ["tests.json", ]
     def test_base_template_exists(self):
         template_base_path = os.path.join(settings.TEMPLATE_DIR, 'gubookhub', 'base.html')
         self.assertTrue(os.path.exists(template_base_path), "Base template does not exist.")
+
+    def test_base_template_usage(self):
+        urls = [reverse('gubookhub_app:index'),
+                reverse('gubookhub_app:about'),
+                reverse('gubookhub_app:search'),]
+
+        templates = ['gubookhub/index.html',
+                     'gubookhub/about.html',
+                     'gubookhub/search.html',]
+
+        for url, template in zip(urls, templates):
+            response = self.client.get(url)
+            self.assertTemplateUsed(response, template)
 
 class SearchTests(TestCase):
     pass;
