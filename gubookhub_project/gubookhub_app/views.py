@@ -57,8 +57,8 @@ def subject(request, subject_name_slug):
 
     subject= Subject.objects.get(slug=subject_name_slug)
     associated_courses = Course.objects.filter(subject=subject)
-    context= {'subject':subject, 'courses':associated_courses}
-
+    context= {'subject':subject, 'courses':associated_courses,}
+    
     return render(request, 'gubookhub/subject.html', context=context)
 
 def course(request, subject_name_slug, course_title):
