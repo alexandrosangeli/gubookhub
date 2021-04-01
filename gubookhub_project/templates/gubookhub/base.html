@@ -48,7 +48,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:edit_profile' %}">Edit Profile</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_password_change' %}">Change Password</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'auth_logout' %}?next={% url 'gubookhub_app:index' %}">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:profile_page' %}">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gubookhub_app:profile_page' user.username %}">Profile</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'registration_register' %}">Sign Up</a></li>
                         <li class="nav-item "><a class="nav-link" href="{% url 'auth_login' %}">Login</a></li>

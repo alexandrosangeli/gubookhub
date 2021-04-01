@@ -36,9 +36,10 @@ def about(request):
 
     return render(request, 'gubookhub/about.html', context = context_dict)
 
-def profile_page(request):
+def profile_page(request, username):
     context_dict = {}
-    user = request.user
+    user = User.objects.get(username=username)
+    # user = request.user
 
     context_dict['username'] = user.username
     context_dict['email'] = user.email
@@ -78,7 +79,7 @@ def subject(request, subject_name_slug):
 def course(request, subject_name_slug, course_title):
     course = Course.objects.get(title=course_title)
     book_list = Book.objects.filter(course=course).order_by('title')
-    subject = Subject.objects.get(slug=subject_name_slug)
+    subject = Subject.objects.get(slug=subject_name_slug)    
     context = {'course':course, 'books':book_list, 'subject':subject}
 
     return render(request, 'gubookhub/course.html', context=context)
