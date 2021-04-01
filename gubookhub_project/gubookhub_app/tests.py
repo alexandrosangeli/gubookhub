@@ -7,6 +7,7 @@ from django.db import models
 from django.forms import fields as django_fields
 from django.conf import settings
 from gubookhub_app import forms
+from gubookhub_app.models import Book
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -100,7 +101,18 @@ class AddBookTests(TestCase):
     fixtures = ["tests.json", ]
     def test_add_book_functionality(self):
         form = forms.BookForm(data={'title':'Tango with Django 2', 'author':'Leif Azzopardi', "url":"https://moodle.gla.ac.uk/pluginfile.php/3433670/mod_resource/content/1/twd-uog-lib-2021-01-07.pdf", "favorite_count":0, "course":1, "user":User.objects.get(username="vertex")})
+
         self.assertTrue(form.is_valid(), "Form is invalid.")
+
+    def test_add_book_functionality(self):
+        form = forms.BookForm(data={'title':'Tango with Django 2', 'author':'Leif Azzopardi', "url":"https://moodle.gla.ac.uk/pluginfile.php/3433670/mod_resource/content/1/twd-uog-lib-2021-01-07.pdf", "favorite_count":0, "course":1})
+        book = form.save(commit=False)
+        book.user = User.objects.get(username="vertex")
+        book.save()
+
+        books = Book.objects.filter(title='Tango with Django 2')
+
+        self.assertEqual(len(books), 1, "When adding a new book, it does not appear in the list of books after being created.")
 
 class URLTests(TestCase):
     def test_add_book_url_mapping(self):
@@ -110,3 +122,11 @@ class URLTests(TestCase):
             resolved_name = ''
 
         self.assertEqual(resolved_name, "gubookhub_app:add_book", "The lookup of URL '/gubookhub_app/add_book/' did not return a mapping name of 'gubookhub_app:add_book'.")
+
+    def test_subject_url_mapping(self):
+        try:
+            resolved_url = reverse('gubookhub_app:subject', kwargs={'subject_name_slug': 'computing-science'})
+        except:
+            resolved_url = ''
+
+        self.assertEqual(resolved_url, '/gubookhub_app/items/computing-science/', "The lookup of URL name didn't return a valid URL matching. Check you have the correct mappings and URL parameters, and try again.")
