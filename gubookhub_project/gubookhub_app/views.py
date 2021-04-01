@@ -182,7 +182,7 @@ class FavouriteBookView(View):
         except Book.DoesNotExist:
             return HttpResponse(-1)
         except ValueError:
-            HttpResponse(-1)
+            return HttpResponse(-1)
 
 
         if access:
@@ -197,7 +197,6 @@ class SubjectMoreInfoView(View):
     def get(self, request):
         subject = request.GET['subject']
         subj_obj = Subject.objects.get(slug=subject)
-        print("hellooooooooooo")
 
         courses = Course.objects.filter(subject=subj_obj)
         number_of_courses = len(courses)

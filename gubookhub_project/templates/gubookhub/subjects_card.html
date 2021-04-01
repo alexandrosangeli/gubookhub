@@ -21,7 +21,7 @@
     <img height="125" width="100" class="card-img-top" src="{% static 'subject_images/' %}{{ subject.name }}" alt="Subject Image">
     <div class="card-body">
       <a href="{% url 'gubookhub_app:subject' subject.slug %}"><h5 class="card-title">{{ subject.name }}</h5></a>
-      <a href="#" id="info-btn" data-subject="{{ subject.slug }}" class="btn-fav-class btn btn-info btn-sm" data-toggle="modal" data-target="#{{ subject.slug }}-modal">Info <span data-feather="info"></span></a>
+      <a href="#" id="info-btn" data-subject="{{ subject.slug }}" class="btn-subject-info btn btn-info btn-sm" data-toggle="modal" data-target="#{{ subject.slug }}-modal">Info <span data-feather="info"></span></a>
     </div>
   </div>
 

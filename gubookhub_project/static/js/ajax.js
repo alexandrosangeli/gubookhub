@@ -60,7 +60,6 @@ $(document).ready(function () {
     $('.btn-fav-class').click(function() {
         var book_id;
         book_id = $(this).attr('data-bookid');
-        $(this).hide();
 
         $.get(
             '/gubookhub_app/favourite_book/',
@@ -70,13 +69,13 @@ $(document).ready(function () {
                     alert("You have already awarded this book.")
                 } else {
                     $('#' + book_id + '-fav-count').html(data);
-                    $(this).hide();
+                    $('#' + book_id + '-fav-btn').hide();
                 }
             }
         )
     });
 
-    $('.btn-info').on('click', function() {
+    $('.btn-subject-info').on('click', function() {
         var subject_slug;
         subject_slug = $(this).attr('data-subject');
 

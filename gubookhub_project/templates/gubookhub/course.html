@@ -48,7 +48,7 @@
                         <div>
                             <strong id="{{ book.id }}-fav-count">{{ book.favorite_count }}</strong> user awards.
                             {% if user.is_authenticated %}
-                                <button id="fav-btn" data-bookid="{{ book.id }}" class="btn-fav-class btn btn-danger btn-sm" type="button">
+                                <button id="{{ book.id }}-fav-btn" data-bookid="{{ book.id }}" class="btn-fav-class btn btn-danger btn-sm" type="button">
                                     <span data-feather="award"></span>
                                     Award
                                 </button>
