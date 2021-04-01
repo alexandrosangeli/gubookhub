@@ -17,55 +17,97 @@
     </div>
 </div>
 
-<div class="container rounded bg-white mt-5 mb-5">
-    
 
-    <div class="row">
-        <div class="col-md-4 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded-circle mt-2" src="">
-                {% if profile %}  
-                {% if profile.picture %} 
-                <span class="img-fluid"><img class="rounded-circle mt-5" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="150" height="150"></span>
-                {% else %} 
-                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
-                {% endif %} 
-
-                {% else %} 
-                <span class="img-fluid"><img class="rounded-circle mt-5" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="col-md-4 border-right">
-            <h5 class="jumbotron-heading align-items-center text-center">Your current profile details</h5>
-            <div class="p-3 py-5">
-                <div class="d-flex flex-column align-items-center text-center p-5 py-5">
-                {% if profile %}  
-                <span class="font-weight-light">Usename: {{ username }}</span>
-                <span class="text-black-50">Email: {{ email }}</span>
-                <span class="text-black-50">Level: {{ profile.level }}</span>
-                <span class="text-black-50">Subject: {{ profile.subject }}</span>
-                {% else %} 
-                <span class="font-weight-light">Usename: {{ username }}</span><span class="text-black-50">Email: {{ email }}</span>
-                {% endif %}
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4 border-right">
-            <h5 class="jumbotron-heading align-items-center text-center">Books contributed by {{ username }}</h5>
-            <div class="p-3 py-5">
-                <div class="d-flex flex-column align-items-center text-center p-5 py-5">
-                {% if books %} 
-                {% for book in books %} 
-                    <p class="list-group-item"><a href="{% url 'gubookhub_app:course' book.course.subject.slug book.course.title %}">{{ book.course }}</a> : {{ book }}</p>
-                {% endfor %} 
-                {% endif %} 
-                </div>
-            </div>
+<div class="box">
+    <div id="overlay">
+    {% if profile %}  
+    {% if profile.picture %} 
+    <div class="active-image">
+        <span class="img-fluid"><img class="rounded-circle mt-1" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="200" height="200"></span>
+        <div class="trick">
         </div>
     </div>
+
+    {% else %} 
+    <div class="no-active-image">
+        <span class="img-fluid"><img class="rounded-circle mt-1" src="{% static 'default_profile.jpg' %}" width="200" height="200"></span>
+        <div class="trick">
+        </div>
+    </div>
+    {% endif %} 
+
+    {% else %} 
+    <div class="no-active-image">
+        <span class="img-fluid"><img class="rounded-circle mt-1" src="{% static 'default_profile.jpg' %}" width="200" height="200"></span>
+        <div class="trick">
+        </div>
+    </div>
+    {% endif %}
+
+<ul class="text">{{ username }}</ul>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading " role="tab" id="headingOne">
+      <h4 class="panel-title ">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="" aria-controls="collapseOne">
+          <div class="title text-uppercase btn btn-danger btn-outline btn-lg">About {{username}}</div>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <ul class="panel-text">
+        {% if profile %}
+            <p class="text-50">Email: {{ email }}</p>
+            <p class="text-50">Level: {{ profile.level }}</p>
+            <p class="text-50">Subject: {{ profile.subject }}</p>
+        {% else %} 
+            <p class="text-50">Usename: {{ username }}</p><p class="text-50">Email: {{ email }}</p>
+        {% endif %}
+        </ul> 
+        
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <div class="title text-uppercase btn btn-danger btn-outline btn-lg">Books Contributed</div>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+        <ul class="panel-text">
+            {% if books %} 
+            {% for book in books %} 
+                <p class="text-50"><a href="{% url 'gubookhub_app:course' book.course.subject.slug book.course.title %}">{{ book.course }}</a> : {{ book }}</p>
+            {% endfor %} 
+            {% else %} 
+            No books contributed yet
+            {% endif %} 
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <div class="title text-uppercase btn btn-danger btn-outline btn-lg">Favourite books</div>
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="panel-body">
+          <div class="panel-text">
+            Add favourites here 
+
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %} 
