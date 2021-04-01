@@ -1,16 +1,17 @@
 from django.shortcuts import render
 from gubookhub_app.forms import UserForm, ProfileForm, BookForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from gubookhub_app.google_books_api import run_query
-from gubookhub_app.models import Subject, Course, Book, User, Profile
+from gubookhub_app.models import Subject, Course, Book, User, Profile, Favorite
 from gubookhub_app.helpers import list_courses, list_subjects, list_split
 from django.contrib import messages
 from django.views.generic.base import View
 from django.conf import settings
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
@@ -75,7 +76,6 @@ def subject(request, subject_name_slug):
     return render(request, 'gubookhub/subject.html', context=context)
 
 def course(request, subject_name_slug, course_title):
-
     course = Course.objects.get(title=course_title)
     book_list = Book.objects.filter(course=course).order_by('title')
     subject = Subject.objects.get(slug=subject_name_slug)
@@ -168,3 +168,50 @@ class SubjectListingView(View):
         print(subjects_output)
 
         return render(request, 'gubookhub/subjects_card.html', {'subjects_output': subjects_output})
+
+class FavouriteBookView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        book_id = request.GET['book_id']
+        user_obj = User.objects.get(username=request.user)
+
+        try:
+            book = Book.objects.get(id=int(book_id))
+            # if an object is found, 'access' will be 'false'
+            favourite, access = Favorite.objects.get_or_create(user=user_obj, book=book)
+        except Book.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            HttpResponse(-1)
+
+
+        if access:
+            book.favorite_count += 1
+            book.save()
+        else:
+            return HttpResponse(-2)
+
+        return HttpResponse(book.favorite_count)
+
+class SubjectMoreInfoView(View):
+    def get(self, request):
+        subject = request.GET['subject']
+        subj_obj = Subject.objects.get(slug=subject)
+        print("hellooooooooooo")
+
+        courses = Course.objects.filter(subject=subj_obj)
+        number_of_courses = len(courses)
+
+        # get books which their course is in the courses list
+        books = Book.objects.filter(course__in=courses)
+        number_of_books = len(books)
+
+        favs = Favorite.objects.filter(book__in=books)
+        number_of_favs = len(favs)
+        return JsonResponse({
+            'number_of_courses':number_of_courses,
+            'number_of_books':number_of_books,
+            'number_of_favs':number_of_favs
+        })
+
+

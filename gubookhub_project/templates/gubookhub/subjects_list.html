@@ -7,14 +7,14 @@
                 <li class="nav-item">
                     <strong>
                         <a class="nav-link active" href="{% url 'gubookhub_app:subject' subject.slug %}">
-                            <span data-feather="archive"></span>{{ subject.name }}
+                            <span data-feather="book-open"></span>{{ subject.name }}
                         </a>
                     </strong>
                 </li>
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'gubookhub_app:subject' subject.slug %}">
-                        <span data-feather="archive"></span>{{ subject.name }}
+                        <span data-feather="book-open"></span>{{ subject.name }}
                     </a>
                 </li>
             {% endif %}

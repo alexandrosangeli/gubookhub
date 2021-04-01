@@ -47,7 +47,7 @@ class Profile(models.Model):
 
 class Favorite(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         # User favorited: Book
