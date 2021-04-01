@@ -65,7 +65,7 @@ $(document).ready(function () {
             '/gubookhub_app/favourite_book/',
             {'book_id':book_id},
             function(data){
-                if (data='2'){
+                if (data='-2'){
                     alert("You have already awarded this book.")
                 } else {
                     $('#' + book_id + '-fav-count').html(data);
