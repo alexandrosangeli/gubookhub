@@ -23,14 +23,14 @@
     {% if profile %}  
     {% if profile.picture %} 
     <div class="active-image">
-        <span class="img-fluid"><img class="rounded-circle mt-1" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="200" height="200"></span>
+        <span class="img-fluid"><img class="rounded-circle mt-4" src="{{ MEDIA_URL }}/{{ profile.picture }}" width="150" height="150"></span>
         <div class="trick">
         </div>
     </div>
 
     {% else %} 
     <div class="no-active-image">
-        <span class="img-fluid"><img class="rounded-circle mt-1" src="{% static 'default_profile.jpg' %}" width="200" height="200"></span>
+        <span class="img-fluid"><img class="rounded-circle mt-4" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
         <div class="trick">
         </div>
     </div>
@@ -38,7 +38,7 @@
 
     {% else %} 
     <div class="no-active-image">
-        <span class="img-fluid"><img class="rounded-circle mt-1" src="{% static 'default_profile.jpg' %}" width="200" height="200"></span>
+        <span class="img-fluid"><img class="rounded-circle mt-4" src="{% static 'default_profile.jpg' %}" width="150" height="150"></span>
         <div class="trick">
         </div>
     </div>
