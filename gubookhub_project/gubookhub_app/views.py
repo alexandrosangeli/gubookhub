@@ -184,7 +184,6 @@ class FavouriteBookView(View):
         except ValueError:
             return HttpResponse(-1)
 
-
         if access:
             book.favorite_count = len(Favorite.objects.filter(book=book))
             book.save()
