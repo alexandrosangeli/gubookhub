@@ -186,7 +186,7 @@ class FavouriteBookView(View):
 
 
         if access:
-            book.favorite_count += 1
+            book.favorite_count = len(Favorite.objects.filter(book=book))
             book.save()
         else:
             return HttpResponse(-2)
