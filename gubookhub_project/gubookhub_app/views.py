@@ -39,7 +39,6 @@ def about(request):
 def profile_page(request, username):
     context_dict = {}
     user = User.objects.get(username=username)
-    # user = request.user
 
     context_dict['username'] = user.username
     context_dict['email'] = user.email
