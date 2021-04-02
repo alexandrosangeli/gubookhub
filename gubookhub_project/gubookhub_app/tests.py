@@ -10,6 +10,7 @@ from gubookhub_app import forms
 from gubookhub_app.models import Book
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.staticfiles import finders
 
 def create_user_object():
     user = User.objects.get_or_create(username='testuser',
@@ -130,3 +131,35 @@ class URLTests(TestCase):
             resolved_url = ''
 
         self.assertEqual(resolved_url, '/gubookhub_app/items/computing-science/', "The lookup of URL name didn't return a valid URL matching. Check you have the correct mappings and URL parameters, and try again.")
+
+
+class ViewTests(TestCase):
+    def test_index(self):
+        url = reverse('gubookhub_app:index')
+        response = self.client.get(url)
+        content = response.content.decode()
+        self.assertEqual(response.status_code, 200)
+
+        # Checks if correct message appears when no subjects are present
+        self.assertIn("There are no subjects present.", content)
+        
+
+    def test_about(self):
+        url = reverse('gubookhub_app:about')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_search(self):
+        url = reverse('gubookhub_app:search')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+
+class ImageTests(TestCase):
+    def test_header_image(self):
+        result = finders.find('uofg_header.jpeg')
+        self.assertIsNotNone(result)
+
+    def test_default_profile_image(self):
+        result = finders.find('default_profile.jpg')
+        self.assertIsNotNone(result)
