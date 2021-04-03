@@ -95,9 +95,6 @@ class StructureTests(TestCase):
             response = self.client.get(url)
             self.assertTemplateUsed(response, template)
 
-class SearchTests(TestCase):
-    pass;
-
 class AddBookTests(TestCase):
     fixtures = ["tests.json", ]
     def test_add_book_functionality(self):
@@ -142,7 +139,7 @@ class ViewTests(TestCase):
 
         # Checks if correct message appears when no subjects are present
         self.assertIn("There are no subjects present.", content)
-        
+
 
     def test_about(self):
         url = reverse('gubookhub_app:about')
