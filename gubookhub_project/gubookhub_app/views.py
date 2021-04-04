@@ -46,6 +46,9 @@ def profile_page(request, username):
         context_dict['profile'] = user.profile
     context_dict['books'] = Book.objects.filter(user=user)
 
+    favourite_books = Favorite.objects.filter(user=user)
+    context_dict['favourites'] = favourite_books
+
     return render(request, 'gubookhub/profile_page.html', context=context_dict)
 
 
@@ -150,7 +153,16 @@ class CourseListingView(View):
             subject_obj = Subject.objects.get(name=subject)
             course_list = Course.objects.filter(subject=subject_obj).order_by('title')
 
-        return render(request, 'gubookhub/courses.html', {'courses': course_list})
+        context = {}
+        context['courses'] = course_list
+        
+        number_of_books = {}
+        for course in course_list:
+            number_of_books[course] = len(Book.objects.filter(course=course))
+        
+        context['number_of_books'] = number_of_books
+
+        return render(request, 'gubookhub/courses.html', context=context)
 
 class SubjectListingView(View):
     def get(self, request):

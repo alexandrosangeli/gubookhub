@@ -41,16 +41,16 @@
                             <form method="POST" action="{% url 'gubookhub_app:search' %}">
                                 {% csrf_token %}
                                 <input type="text" name="query" value="{{ book.title }}" hidden>
-                                <input class="btn btn-sm btn-danger" type="submit" value="Search the Web">
+                                <input class="btn btn-sm btn-danger" type="submit" value="Google Books">
                             </form>
                         {% endif %}
                         <br>
                         <div>
-                            <strong id="{{ book.id }}-fav-count">{{ book.favorite_count }}</strong> user awards.
+                            <strong id="{{ book.id }}-fav-count">{{ book.favorite_count }}</strong> user favourites.
                             {% if user.is_authenticated %}
                                 <button id="{{ book.id }}-fav-btn" data-bookid="{{ book.id }}" class="btn-fav-class btn btn-danger btn-sm" type="button">
                                     <span data-feather="award"></span>
-                                    Award
+                                    Favourite
                                 </button>
                             {% endif %}
                         </div>

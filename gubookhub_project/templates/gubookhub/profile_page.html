@@ -10,13 +10,7 @@
 {% endblock %}
 
 
-{% block body_block %} 
-<div class="jumbotron p-4">
-	<div class="container">
-		<h1 class="jumbotron-heading">{{ username }}'s Profile</h1>
-    </div>
-</div>
-
+{% block body_block %}
 
 <div class="box">
     <div id="overlay">
@@ -81,11 +75,11 @@
       <div class="panel-body">
         <ul class="panel-text">
             {% if books %} 
-            {% for book in books %} 
-                <p class="text-50"><a href="{% url 'gubookhub_app:course' book.course.subject.slug book.course.title %}">{{ book.course }}</a> : {{ book }}</p>
-            {% endfor %} 
+              {% for book in books %} 
+                  <p class="text-50"><a href="{% url 'gubookhub_app:course' book.course.subject.slug book.course.title %}">{{ book.course }}</a> : {{ book }}</p>
+              {% endfor %} 
             {% else %} 
-            No books contributed yet
+              No books contributed yet
             {% endif %} 
         </ul>
       </div>
@@ -102,8 +96,22 @@
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
       <div class="panel-body">
           <div class="panel-text">
-            Add favourites here 
-
+            {% if favourites %} 
+              {% for fav in favourites %} 
+                {% if fav.book.url %}
+                  <a href="{{ fav.book.url }}"><p class="text-50">{{ fav.book.title }}</p></a>
+                {% else %}
+                    <form method="POST" action="{% url 'gubookhub_app:search' %}">
+                    {% csrf_token %}
+                    <input type="text" name="query" value="{{ fav.book.title }}" hidden>
+                    <p>{{ fav.book.title }}
+                    <input class="btn btn-sm btn-danger" type="submit" value="Google Books">
+                    </form></p>
+                {% endif %}
+              {% endfor %} 
+            {% else %} 
+              Favourites list is empty.
+            {% endif %}  
           </div>
       </div>
     </div>

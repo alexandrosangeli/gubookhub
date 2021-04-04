@@ -25,7 +25,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'pcn4aye%#hy0w@x@&l7f50fcjhzj#$$gb*0c9itm&v2velo)0!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['gubookhub.pythonanywhere.com', 'localhost', '127.0.0.1']
 

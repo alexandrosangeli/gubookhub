@@ -27,36 +27,6 @@ $(document).ready(function () {
         )
     });
 
-    // $('.btn-fav-class').mouseover(function() {
-    //     var book_id;
-    //     book_id = $(this).attr('data-bookid');
-
-    //     $.get(
-    //         '/gubookhub_app/favourite_book/',
-    //         {'book_id':book_id},
-    //         function(data){
-    //             if (data = '2'){
-    //                 // $(this).prop('disabled', true);
-    //                 $(this).html("You can only award once!");
-    //             }
-    //         }
-    //     )
-    // });
-
-    // $('#fav-btn').click(function() {
-    //     var book_id;
-    //     book_id = $(this).attr('data-bookid');
-
-    //     $.get(
-    //         '/gubookhub_app/favourite_book/',
-    //         {'book_id':book_id},
-    //         function(data){
-    //             $('#fav-count').html(data);
-    //             $('#fav-btn').hide();
-    //         }
-    //     )
-    // });
-
     $('.btn-fav-class').click(function() {
         var book_id;
         book_id = $(this).attr('data-bookid');
@@ -66,7 +36,7 @@ $(document).ready(function () {
             {'book_id':book_id},
             function(data){
                 if (data == '-2'){
-                    alert("You have already awarded this book.");
+                    alert("You have already favourited this book.");
                 } else {
                     $('#' + book_id + '-fav-count').html(data);
                     $('#' + book_id + '-fav-btn').hide();
@@ -85,7 +55,7 @@ $(document).ready(function () {
             function(data){
                 $('#'+subject_slug+"-no-courses").html(data.number_of_courses + " total courses.");
                 $('#'+subject_slug+"-no-books").html(data.number_of_books + " total books.");
-                $('#'+subject_slug+"-no-awards").html(data.number_of_favs + " total book awards.");
+                $('#'+subject_slug+"-no-awards").html(data.number_of_favs + " total book favourites.");
             }
         )
     });
