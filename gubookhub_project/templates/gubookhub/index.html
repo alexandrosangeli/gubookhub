@@ -26,8 +26,7 @@ Homepage
 <div>
 	<h5 class="h5">
 		{% if user.is_authenticated %}
-		<!-- <br>
-		Welcome to the BookHub, {{ user.username }}! -->
+		<!-- continue -->
 		{% else %}
 		<div class="alert alert-info" role="alert">
 			Login to access more features!
@@ -44,6 +43,7 @@ Homepage
 		aria-describedby="basic-addon1">
 </div>
 <div id="subject-listing">
+	<!-- subjects are retrieved from custom template -->
 	{% get_subjects_cards %}
 </div>
 

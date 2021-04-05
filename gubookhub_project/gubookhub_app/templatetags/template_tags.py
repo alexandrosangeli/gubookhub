@@ -5,6 +5,7 @@ from gubookhub_app.helpers import list_split
 
 register = template.Library()
 
+# retrieved all the courses under a subject from a database
 @register.inclusion_tag('gubookhub/courses.html')
 def get_courses_list(subject_name):
     subject = Subject.objects.get(name=subject_name)
@@ -19,14 +20,18 @@ def get_courses_list(subject_name):
 
     return context
 
+#retrieves subjects and rendered by subjects_list which shows subjects as a list (used by the sidebar)
 @register.inclusion_tag('gubookhub/subjects_list.html')
 def get_subjects_list(current_subject=None):
     return {'subjects' : Subject.objects.all(), 'current_subject':current_subject}
 
+#retrieves subjects and rendered by subjects_card which shows subjects as cards (used by the index page main body)
 @register.inclusion_tag('gubookhub/subjects_card.html')
 def get_subjects_cards():
     return {'subjects_output' : list_split(Subject.objects.all(),6)}
 
+
+# custom tag to get a value of a dictionary using a key
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)

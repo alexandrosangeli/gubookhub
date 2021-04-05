@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Subject(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True, blank=True)
-
+    # create a slug from the name when saving to be used from the URLs
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Subject, self).save(*args, **kwargs)
@@ -39,7 +39,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     level = models.IntegerField(blank=False)
-    subject = models.CharField(max_length=128, blank=False) # Considering making it a foreign key later on
+    subject = models.CharField(max_length=128, blank=False)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
